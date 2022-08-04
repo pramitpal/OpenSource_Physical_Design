@@ -148,7 +148,7 @@
    - OpenLANE supports two modes of operation: interactive and autonomous.
    - To use interactive mode use `-interactive` flag with `./flow.tcl`
    
-   <img src="images/d1_openlane_invoke.JPG"> 
+   ![image](https://user-images.githubusercontent.com/41202066/182911863-ecd29051-40bf-4c76-9458-bad9e565af41.png)
    
  ### Design Preparation
    The first step after invoking OpenLANE is to import the openlane package of required version. This is done using following command. Here 0.9 is the required version of OpenLANE.
@@ -163,16 +163,20 @@
      <br />`-tag <name-for-current-run>` - All the files generated during the flow will be stored in a directory named `<name-for-current-run>`
      <br />`-overwrite` - If a directory name mentioned in `-tag` already exists, it will be overwritten.
    
-   <img src="images/d1_openlane_design_prep.JPG"> 
+   ![image](https://user-images.githubusercontent.com/41202066/182912245-153c7bae-ba5d-47f6-927b-4f3eef7b7201.png)
    
    During the design preparation the technology LEF and cell LEF files are merged together to obtain a `merged.lef` file. The LEF file contains information like the layer information, set of design rules, information about each standard cell which is required for place and route. 
     
  ### Design Synthesis and Results
    The first step in OpenLANE flow is RTL Synthesis of the design loaded. This is done using the following command.
    
-    run_synthesis
+    ```run_synthesis```
    
    <img src="images/d1_openlane_synthesis.JPG">
+   
+   After running the synthesis on the design we get the synthesis statistics. 
+   The ``Flop Ratio`` can be calculated by Number of D Flip-Flops/Total Number of Cells, which can b calculated from the above statistic as 1613/17222 = 0.093 or 9.3%. 
+   
    
 # Day 2 - Good floorplan vs bad floorplan and introduction to library cells
  ## Chip Floorplanning
