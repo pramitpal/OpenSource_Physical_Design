@@ -172,10 +172,13 @@
    
     ```run_synthesis```
    
-   <img src="images/d1_openlane_synthesis.JPG">
+   ![image](https://user-images.githubusercontent.com/41202066/182918275-4af30444-0125-498b-bc23-8669e81c1615.png)
+   ![image](https://user-images.githubusercontent.com/41202066/182918411-ff8b9b13-e524-429f-a69e-625116883dd4.png)
+![image](https://user-images.githubusercontent.com/41202066/182918504-5666b773-2755-419a-afad-cd46b3131c9b.png)
+
    
-   After running the synthesis on the design we get the synthesis statistics. 
-   The ``Flop Ratio`` can be calculated by Number of D Flip-Flops/Total Number of Cells, which can b calculated from the above statistic as 1613/17222 = 0.093 or 9.3%. 
+   After running the synthesis on the design we get the synthesis statistics along with the ``Synthesis was successful`` message. 
+   The ``Flop Ratio`` can be calculated by Number of D Flip-Flops/Total Number of Cells, which can b calculated from the above statistic as 1613/14876 = 0.1084 or 10.84%. 
    
    
 # Day 2 - Good floorplan vs bad floorplan and introduction to library cells
