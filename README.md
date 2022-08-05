@@ -261,12 +261,12 @@
   
   <table border="0">
   <tr>
-    <td><img src="images/d3_magic_layout_with_error.JPG"> </td>
-    <td> <img src="images/d3_magic_with_error.JPG"> </td>
+    <td><img src="images/d3_sky130_inv_drc.jpg"> </td>
+    <td> <img src="images/d3_sky130_inv_drc_console.jpg"> </td>
   </tr>
   <tr>
-    <td><img src="images/d3_magic_layout_without_error.JPG"> </td>
-    <td> <img src="images/d3_magic_without_error.JPG"> </td>
+    <td><img src="images//d3_sky130_inv_no_drc.jpg"> </td>
+    <td> <img src="images/d3_sky130_inv_no_drc_console.jpg"> </td>
   </tr>
   </table>
   
@@ -286,12 +286,12 @@
   
   <table border="0">
   <tr>
-    <td> <center>Commands for Extraction</center> <br /><img src="images/d3_spice_ext_1.JPG"> </td>
-    <td> <center>.ext file</center> <img src="images/d3_spice_ext_2.JPG"> </td>
+    <td> <center>Commands for Extraction</center> <br /><img src="images/d3_extract_commands.jpg"> </td>
+    <td> <center>.ext file</center> <img src="images/d3_sky130_inv_ext.jpg"> </td>
   </tr>
   <tr>
-    <td> <center>Generated SPICE Netlist</center> <img src="images/d3_spice_1.JPG"> </td>
-    <td> <center>Modified SPICE Netlist</center> <img src="images/d3_spice_2.JPG"> </td>
+    <td> <center>Generated SPICE Netlist</center> <img src="images/d3_sky130_inv_spice.jpg"> </td>
+    <td> <center>Modified SPICE Netlist</center> <img src="images/d3_sky130_inv_spice_modified.jpg"> </td>
   </tr>
   </table>
   
@@ -305,11 +305,11 @@
     
     ngspice 1 -> plot Y vs time A
     
-   <img src="images/d3_ngspice_2.JPG">
+   <img src="images/d3_sky130_inv_ngspice.jpg">
    
    Below figure shows the waveform of Inverter output vs input w.r.t. time. Many timing parameters like rise time delay, fall time delay, propagation delay are calculated using this waveform.
    
-   <img src="images/d3_ngspice_3.JPG">
+   <img src="images/d3_sky130_inv_spice_modified_waveform.jpg">
   
 # Day 4 - Pre-layout timing analysis and importance of good clock tree
   In order to use a design of standard cell layout in OpenLANE RTL2GDS flow, it is converted to a standard cell LEF. LEF stands for Library Exchange Format. The entire design has to be analyzed for any timing violations after addition or change in the design.
