@@ -210,7 +210,7 @@
     3. DEF File
     
    <img src="images/d2_floorplan_invoke_magic_cmd.JPG">
-   ![image](https://user-images.githubusercontent.com/41202066/182999932-6a55202e-359d-4c9f-9f5a-8ac8ff6dffc1.png)
+   <img src="images/d2_floorplan_magic.JPG">
    <img src="images/d2_floorplan_magic_expand.JPG">
  
  ## Placement
