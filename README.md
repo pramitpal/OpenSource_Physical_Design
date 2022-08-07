@@ -29,17 +29,19 @@
     - [Cell Design and Characterization Flows](#cell-design-and-characterization-flows)
       - [Cell Design Flow](#cell-design-flow)
       - [Characterization Flow](#characterization-flow)
-  - [Day 3 - Design library cell using Magic Layout and ngspice characterization](#day-3---design-library-cell-using-magic-layout-and-ngspice-characterization)
+  - [Day 3 - Using Magic Layout and ngspice characterization create a library cell](#day-3---using-magic-layout-and-ngspice-characterization-create-a-library-cell)
     - [CMOS Inverter Design using Magic](#cmos-inverter-design-using-magic)
     - [Extract SPICE Netlist from Standard Cell Layout](#extract-spice-netlist-from-standard-cell-layout)
     - [Transient Analysis using NGSPICE](#transient-analysis-using-ngspice)
-  - [Day 4 - Pre-layout timing analysis and importance of good clock tree](#day-4---pre-layout-timing-analysis-and-importance-of-good-clock-tree)
+  - [Day 4 - Analysis of pre-layout timing and the significance of a good clock tree](#day-4---analysis-of-pre-layout-timing-and-the-significance-of-a-good-clock-tree)
     - [Magic Layout to Standard Cell LEF](#magic-layout-to-standard-cell-lef)
+    - [Plugging custom LEF to Openlane](#plugging-custom-lef-to-openlane)
     - [Timing Analysis using OpenSTA](#timing-analysis-using-opensta)
     - [Clock Tree Synthesis using TritonCTS](#clock-tree-synthesis-using-tritoncts)
-  - [Day 5 - Final steps for RTL2GDS](#day-5---final-steps-for-rtl2gds)
+  - [Day 5 - RTL2GDS Final Steps](#day-5---rtl2gds-final-steps)
     - [Generation of Power Distribution Network](#generation-of-power-distribution-network)
     - [Routing using TritonRoute](#routing-using-tritonroute)
+    - [DRC Check After Routing](#drc-check-after-routing)
     - [SPEF File Generation](#spef-file-generation)
   - [References](#references)
   - [Acknowledgement](#acknowledgement)
@@ -86,7 +88,7 @@
   - Core: It is the actual area of the IC where the logic resides.
   - Pads: These are the interfaces between the internal signals of a chip and the external pins
  
-  <img src="images/d1_ic_terms.JPG">
+  <img src="images/d1_ic_terms.jpg">
  
  ## Introduction To RISC-V
    RISC-V is a new ISA that's available under open, free and non-restrictive licences. RISC-V ISA delivers a new level of free, extensible software and hardware freedom on architecture.
@@ -250,7 +252,7 @@
   5. Model Generation - The obtained data is fed into the models
   6. Verification - Different checks are performed to ensure the correctness of the characterization
  
-# Day 3 - Design library cell using Magic Layout and ngspice characterization
+# Day 3 - Using Magic Layout and ngspice characterization create a library cell
   Each Design has an equivalent cell design. The Cell Library includes all of the standard cell designs. A completely unique cell design that complies with all of the rules can be added to the library. To begin, a CMOS inverter is designed in Magic Layout Tool and analysed with NGSPICE.
   
  ## CMOS Inverter Design using Magic
@@ -309,7 +311,7 @@ The SPICE model for a given layout is extracted in two stages.
    
    <img src="images/d3_sky130_inv_spice_modified_waveform.jpg">
   
-# Day 4 - Pre-layout timing analysis and importance of good clock tree
+# Day 4 - Analysis of pre-layout timing and the significance of a good clock tree
   To use a standard cell layout design in an OpenLANE RTL2GDS flow, it is converted to a standard cell LEF. LEF is an abbreviation for Library Exchange Format. After any addition or change to the design, the entire design must be analysed for any timing violations.
   
  ## Magic Layout to Standard Cell LEF
@@ -465,7 +467,7 @@ If a new custom cell needs to be plugged into openlane flow, include the lefs (t
     
    <img src="images/d4_run_cts.jpg">
 
-# Day 5 - Final steps for RTL2GDS
+# Day 5 - RTL2GDS Final Steps
  ## Generation of Power Distribution Network
    The generation of the power distribution network occurs before the placement step in a normal RTL to GDSII flow, but it occurs after the Clock Tree Synthesis in an OpenLANE flow (CTS). This step generates all of the tracks and rails needed to route power to the entire chip.
 The following command is used to generate a power distribution network.
@@ -517,5 +519,3 @@ For the generation of SPEF files, OpenLANE includes a tool called SPEF EXTRACTOR
 # Acknowledgement
   - [Kunal Ghosh](https://github.com/kunalg123), Co-founder, VSD Corp. Pvt. Ltd.
   - [Nickson Jose](https://github.com/nickson-jose)
-  - [Praharsha Mahurkar](https://github.com/praharshapm)
-  - Akurathi Radhika
