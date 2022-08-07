@@ -170,7 +170,7 @@
  ### Design Synthesis and Results
    The first step in OpenLANE flow is RTL Synthesis of the design loaded. This is done using the following command.
    
-    ```run_synthesis```
+    run_synthesis
    
    ![image](https://user-images.githubusercontent.com/41202066/182918275-4af30444-0125-498b-bc23-8669e81c1615.png)
    ![image](https://user-images.githubusercontent.com/41202066/182918411-ff8b9b13-e524-429f-a69e-625116883dd4.png)
