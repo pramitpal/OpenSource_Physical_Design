@@ -6,7 +6,7 @@
   - [About Google SkyWater PDK](#about-google-skywater-pdk)
   - [List of All Open-Source Tools Used](#list-of-all-open-source-tools-used)
   - [Setting Up Environment](#setting-up-environment)
-  - [Day 1 - Inception of open-source EDA, OpenLANE and Sky130 PDK](#day-1---inception-of-open-source-eda-openlane-and-sky130-pdk)
+  - [Day 1 -Introduction to open-source EDA, OpenLANE and Sky130 PDK](#day-1---introduction-to-open-source-eda-openlane-and-sky130-pdk)
     - [Basic IC Design Terminologies](#basic-ic-design-terminologies)
     - [Introduction To RISC-V](#introduction-to-risc-v)
     - [SoC Design and OpenLANE](#soc-design-and-openlane)
@@ -16,7 +16,7 @@
       - [OpenLANE Initialization](#openlane-initialization)
       - [Design Preparation](#design-preparation)
       - [Design Synthesis and Results](#design-synthesis-and-results)
-  - [Day 2 - Good floorplan vs bad floorplan and introduction to library cells](#day-2---good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)
+  - [Day 2 - Introduction to library cells and a comparison of good and bad floorplans](#day-2---introduction-to-library-cells-and-a-comparison-of-good-and-bad-floorplans)
     - [Chip Floorplanning](#chip-floorplanning)
       - [Utilization Factor and Aspect Ratio](#utilization-factor-and-aspect-ratio)
       - [Power Planning](#power-planning)
@@ -78,7 +78,7 @@
   - [VSDFlow](https://github.com/kunalg123/vsdflow) - Installs Yosys, Magic, OpenTimer, OpenSTA and some other supporting tools
   - [OpenLANE Build Scripts](https://github.com/nickson-jose/openlane_build_script) - Install all required OpenROAD and some supporting tools
   
-# Day 1 - Inception of open-source EDA, OpenLANE and Sky130 PDK
+# Day 1 - Introduction to open-source EDA, OpenLANE and Sky130 PDK
  ## Basic IC Design Terminologies
   During the Physical Designing, one will come across multiple terminologies that are frequently used. Some of them are mentioned below:
   - Package: It is a case that surrounds the circuit material to protect it from physical damage or corrosion and allow mounting of the electrical contacts connecting it to the printed circuit board (PCB). The below snippet shows an IC with 48 pins and Quad Flat No-Leads(QFN) package.
@@ -99,9 +99,7 @@
  ## SoC Design and OpenLANE
  ### Open-Source PDK Directory Structure
    All the Process Design Kit(PDK) are listed under the `pdks/` directory. Along with the `Sky130A` we are using some other open-source PDKs and other related files are also available in the directory. The location of the PDK directory is given of `$PDK_ROOT` variable. 
-    
-   <img src="images/d1_pdk_directory_structure.JPG">
-  
+      
  ### What is OpenLANE
    [OpenLANE](https://github.com/efabless/openlane) is an automated RTL to GDSII flow which includes various open-source components such as OpenROAD, Yosys, Magic, Fault, Netgen, SPEF-Extractor. It also facilitates to add custom design exploration and optimization scripts.
    The detailed diagram of the OpenLANE architecture is shown below:
@@ -181,18 +179,18 @@
    The ``Flop Ratio`` can be calculated by Number of D Flip-Flops/Total Number of Cells, which can b calculated from the above statistic as 1613/14876 = 0.1084 or 10.84%. 
    
    
-# Day 2 - Good floorplan vs bad floorplan and introduction to library cells
+# Day 2 - Introduction to library cells and a comparison of good and bad floorplans
  ## Chip Floorplanning
-   Chip Floorplanning is the arrangement of logical block, library cells, pins on silicon chip. It makes sure that every module has been assigned an appropriate area and aspect ratio, every pin of the module has connection with other modules or periphery of the chip and modules are arranged in a way such that it consumes lesser area on a chip.
+   The arrangement of logical blocks, library cells, and pins on a silicon chip is known as chip floorplanning. It ensures that each module has an appropriate area and aspect ratio, that every pin of the module is connected to other modules or the chip's periphery, and that modules are arranged in such a way that they consume less area on a chip.
    
  ### Utilization Factor and Aspect Ratio
-   Utilization Factor is ratio of the area of core used by standard cells to the total core area. The utilization factor is generally kept in the range of 0.5-0.7 i.e. 50% - 60%. Maintaining a proper utilization factor facilitates placement and routing optimization.
+   The utilisation factor is the ratio of standard cell core area to total core area. The utilisation factor is usually kept between 0.5 and 0.7, i.e. 50 and 60 percent. Maintaining a proper utilisation factor makes optimization of placement and routing easier.
    
  ### Power Planning
-   Power planning is a step in which power grid network is created to distribute power to each part of the design equally. This step deals with the unwanted voltage drop and ground bounce. Steady state IR Drop is caused by the resistance of the metal wires comprising the power distribution network. By reducing the voltage difference between local power and ground, steady-state IR Drop reduces both the speed and noise immunity of the local cells and macros.
+   The creation of a power grid network to evenly distribute power to every component of the design is known as the power planning process. This process addresses the unwelcome voltage drop and ground bounce. The metal wires that make up the power distribution network have a resistance that results in steady state IR Drop. Stable-state IR Drop lowers the voltage differential between local power and ground, which lowers the speed and noise immunity of the local cells and macros.
    
  ### Pin Placement
-   Pin placement is a important part of floorplanning as the timing delays and number of buffers required is dependent on the position of the pin. There are multiple pin placement option available such as equidistant placement, high-density placement.
+   The position of the pin affects the timing delays and the number of buffers required, so pin placement is critical in floorplanning. Pin placement options include equidistant placement and high-density placement.
  
  ### Floorplan using OpenLANE
    Floorplanning in OpenLANE is done using the following command. 
@@ -204,17 +202,17 @@
    ![image](https://user-images.githubusercontent.com/41202066/182998917-4477c2af-f60d-4b08-af40-256544fb1600.png)
  
  ### Review Floorplan Layout in Magic
-   Magic Layout Tool is used for visualizing the layout after floorplan. In order to view floorplan in Magic, following three files are required:
-    1. Technology File (`sky130A.tech`)
-    2. Merged LEF file (`merged.lef`)
-    3. DEF File
+ The Magic Layout Tool is used to visualise the layout after the floorplan has been created. The following three files are required to view a floorplan in Magic:
+ 1. Sky130A.tech Technology File
+ 2. LEF file that has been merged ('merged.lef')
+ 3. DEF Document
     
    <img src="images/d2_floorplan_magic_invoke.jpg">
    <img src="images/d2_floorplan_magic.jpg">
  
  ## Placement
  ### Placement and Optimization
-   The next step after floorplanning is placement. Placement determines location of each of the components on the die. Placement does not just place the standard cells available in the synthesized netlist. It also optimizes the design, thereby removing any timing violations created due to the relative placement on die.
+   After floorplanning, the next step is placement. The placement of each component on the die is determined by placement. Placement does not simply place the standard cells from the synthesised netlist. It also optimises the design, removing any timing violations caused by die relative placement.
    
  ### Placement using OpenLANE
    Placement in OpenLANE is done using the following command. 
@@ -244,7 +242,7 @@
   - Power extraction for a whole chip takes too long
   - Automatic detection of timing constraints (e.g. Setup time) is difficult
 
-  A solution to above problems is Cell Characterization. It is a simple model for delay, function, constraints and power on cell/gate level. The Characterization Flow consists of the following stages:
+  Cell Characterization is a solution to the problems mentioned above. It is a simple model for delay, function, constraints, and power at the cell/gate level. The Characterization Flow consists of the following stages:
   1. Netlist Extraction - Transistors, resistances and capacitances are extracted with special tools and saved as SPICE netlist (or similar)
   2. Specification of parameters - Library-wide parameters have to be specified: e.g. max Transition time
   3. Model selection and specification - The used models determine the required data
@@ -253,11 +251,11 @@
   6. Verification - Different checks are performed to ensure the correctness of the characterization
  
 # Day 3 - Design library cell using Magic Layout and ngspice characterization
-  Every Design is represented by equivalent cell design. All the standard cell designs are available in the Cell Library. A fully custom cell design that meets all rules can be added to the library. To begin with, a CMOS Inverter is designed in Magic Layout Tool and analysis is carried out using NGSPICE tool.
+  Each Design has an equivalent cell design. The Cell Library includes all of the standard cell designs. A completely unique cell design that complies with all of the rules can be added to the library. To begin, a CMOS inverter is designed in Magic Layout Tool and analysed with NGSPICE.
   
  ## CMOS Inverter Design using Magic
-  The inverter design is done using Magic Layout Tool. It takes the technology file as an input (`sky130A.tech` in this case). Magic tool provide a very easy to use interface to design various layers of the layout. It also has an in-built DRC check fetaure.
-  The snippet below shows a layout for CMOS Inverter with and without design rule violations.
+  Magic Layout Tool is used to design the inverter. It accepts the technology file ('sky130A.tech' in this case) as input. The Magic tool provides a very simple interface for designing various layers of the layout. It also includes a DRC check fetaure.
+The snippet below depicts a CMOS inverter layout with and without design rule violations.
   
   <table border="0">
   <tr>
@@ -271,8 +269,8 @@
   </table>
   
  ## Extract SPICE Netlist from Standard Cell Layout
-  To simulate and verify the functionality of the standard cell layout designed, there is a need of SPICE netlist of a given layout. To mention in brief, "Simulation Program with Integrated Circuit Emphasis (SPICE)" is an industry standard design language for electronic circuitry. SPICE model very closely models the actual circuit behavior.
-  Extraction of SPICE model for a given layout is done in two stages.
+  A SPICE netlist of a given layout is required to simulate and verify the functionality of the designed standard cell layout. To summarise, "Simulation Program with Integrated Circuit Emphasis (SPICE)" is a design language for electronic circuitry that is widely used in the industry. The SPICE model closely resembles the actual circuit behaviour.
+The SPICE model for a given layout is extracted in two stages.
   1. Extract the circuit from the layout design.
   
     extract all
@@ -312,10 +310,10 @@
    <img src="images/d3_sky130_inv_spice_modified_waveform.jpg">
   
 # Day 4 - Pre-layout timing analysis and importance of good clock tree
-  In order to use a design of standard cell layout in OpenLANE RTL2GDS flow, it is converted to a standard cell LEF. LEF stands for Library Exchange Format. The entire design has to be analyzed for any timing violations after addition or change in the design.
+  To use a standard cell layout design in an OpenLANE RTL2GDS flow, it is converted to a standard cell LEF. LEF is an abbreviation for Library Exchange Format. After any addition or change to the design, the entire design must be analysed for any timing violations.
   
  ## Magic Layout to Standard Cell LEF
-  Before creating the LEF file we require some details about the layers in the designs. This details are available in a `tracks.info` as shown below. It gives information about the `offset` and `pitch` of a track in a given layer both in horizontal and vertical direction. The track information is given in below mentioned format.
+  We need some information about the layers in the designs before we can create the LEF file. This information is available in a 'tracks.info' file, as shown below. It specifies the 'offset' and 'pitch' of a track in a given layer in both the horizontal and vertical directions. The track information is presented in the format shown below.
   
     <layer-name> <X-or-Y> <track-offset> <track-pitch>
     
@@ -469,15 +467,15 @@ If a new custom cell needs to be plugged into openlane flow, include the lefs (t
 
 # Day 5 - Final steps for RTL2GDS
  ## Generation of Power Distribution Network
-   In a normal RTL to GDSII flow the generation of power distribution network is done before the placement step, but in the OpenLANE flow generation of PDN is carried out after the Clock Tree Synthesis(CTS). This step generates all the tracks, rails required for routing power to entire chip.
-   Generation of power distribution network is done using following command.
+   The generation of the power distribution network occurs before the placement step in a normal RTL to GDSII flow, but it occurs after the Clock Tree Synthesis in an OpenLANE flow (CTS). This step generates all of the tracks and rails needed to route power to the entire chip.
+The following command is used to generate a power distribution network.
    
     gen_pdn
     
    <img src="images/gen_pdn.jpg">
    
  ## Routing using TritonRoute
-   OpenLANE uses TritonRoute, an open source router for modern industrial designs. The router consists of several main building blocks, including pin access analysis, track assignment, initial detailed routing, search and repair, and a DRC engine.
+   TritonRoute, an open source router for modern industrial designs, is used by OpenLANE. The router is made up of several major components, such as pin access analysis, track assignment, initial detailed routing, search and repair, and a DRC engine.
    The routing process is implemented in two stages:
    1. Global Routing - Routing guides are generated for interconnects
    2. Detailed Routing - Tracks are generated interatively.
@@ -501,8 +499,8 @@ If a new custom cell needs to be plugged into openlane flow, include the lefs (t
    <img src="images/no_drc.jpg">
    
  ## SPEF File Generation
-   Standard Parasitic Exchange Format (SPEF) is an IEEE standard for representing parasitic data of wires in a chip in ASCII format. Non-ideal wires have parasitic resistance and capacitance that are captured by SPEF. 
-   OpenLANE consists of a tool named, SPEF_EXTRACTOR for generation of SPEF file. It is a `python` based parser which takes the `LEF` and `DEF` files as input arguments and generates the SPEF file. The following command is used for invoking the SPEC_EXTRACTOR.
+   The IEEE standard Standard Parasitic Exchange Format (SPEF) is used to represent parasitic data of wires in a chip in ASCII format. SPEF captures parasitic resistance and capacitance in non-ideal wires.
+For the generation of SPEF files, OpenLANE includes a tool called SPEF EXTRACTOR. It's a Python-based parser that takes the 'LEF' and 'DEF' files as input and generates the SPEF file. The SPEC EXTRACTOR is invoked using the following command.
    
     cd <path-to-SPEF_EXTRACTOR-tool-directory>
     python3 main.py <path-to-LEF-file> <path-to-DEF-file-created-after-routing>
