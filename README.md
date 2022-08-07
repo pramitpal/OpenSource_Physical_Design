@@ -319,14 +319,114 @@
   
     <layer-name> <X-or-Y> <track-offset> <track-pitch>
     
-  <img src="images/d4_track_info.JPG">
+  <img src="images/d4_tracks_info.jpg">
   
   To create a standard cell LEF from an existing layout, some important aspects need to be taken into consideration.
   1. The height of cell be appropriate, so that the `VPWR` and `VGND` properly fall on the power distribution network.
   2. The width of cell should be an odd multiple of the minimum permissible grid size.
   3. The input and ouptut of the cell fall on intersection of the vertical and horizontal grid line.
   
-  <img src="images/d4_valid_layout.JPG">  
+  <table border="0">
+  <tr>
+    <td> <center>Set Grid Alignment</center> <br /><img src="images/d4_grid_alignment.jpg"> </td>
+    <td> <center>Create Port A</center> <img src="images/d4_create_port_A.jpg"> </td>
+  </tr>
+  <tr>
+    <td> <center>Create Port A</center> <img src="images/d4_create_port_B.jpg"> </td>
+    <td> <center>Set Class for Port A</center> <img src="images/d4_A_setclass.jpg"> </td>
+  </tr>
+  </table>
+  
+  The custom LEF file
+  ```
+  VERSION 5.7 ;
+  NOWIREEXTENSIONATPIN ON ;
+  DIVIDERCHAR "/" ;
+  BUSBITCHARS "[]" ;
+MACRO sky130_inv
+  CLASS CORE ;
+  FOREIGN sky130_inv ;
+  ORIGIN 0.000 0.000 ;
+  SIZE 1.380 BY 2.720 ;
+  SITE unithd ;
+  PIN A
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    ANTENNAGATEAREA 0.165600 ;
+    PORT
+      LAYER li1 ;
+        RECT 0.060 1.180 0.510 1.690 ;
+    END
+  END A
+  PIN Y
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    ANTENNADIFFAREA 0.287800 ;
+    PORT
+      LAYER li1 ;
+        RECT 0.760 1.960 1.100 2.330 ;
+        RECT 0.880 1.690 1.050 1.960 ;
+        RECT 0.880 1.180 1.330 1.690 ;
+        RECT 0.880 0.760 1.050 1.180 ;
+        RECT 0.780 0.410 1.130 0.760 ;
+    END
+  END Y
+  PIN VPWR
+    DIRECTION INOUT ;
+    USE POWER ;
+    PORT
+      LAYER nwell ;
+        RECT -0.200 1.140 1.570 3.040 ;
+      LAYER li1 ;
+        RECT -0.200 2.580 1.430 2.900 ;
+        RECT 0.180 2.330 0.350 2.580 ;
+        RECT 0.100 1.970 0.440 2.330 ;
+      LAYER mcon ;
+        RECT 0.230 2.640 0.400 2.810 ;
+        RECT 1.000 2.650 1.170 2.820 ;
+      LAYER met1 ;
+        RECT -0.200 2.480 1.570 2.960 ;
+    END
+  END VPWR
+  PIN VGND
+    DIRECTION INOUT ;
+    USE GROUND ;
+    PORT
+      LAYER li1 ;
+        RECT 0.100 0.410 0.450 0.760 ;
+        RECT 0.150 0.210 0.380 0.410 ;
+        RECT 0.000 -0.150 1.460 0.210 ;
+      LAYER mcon ;
+        RECT 0.210 -0.090 0.380 0.080 ;
+        RECT 1.050 -0.090 1.220 0.080 ;
+      LAYER met1 ;
+        RECT -0.110 -0.240 1.570 0.240 ;
+    END
+  END VGND
+END sky130_inv
+END LIBRARY
+
+  ```
+  
+ ## Plugging custom LEF to Openlane
+
+If a new custom cell needs to be plugged into openlane flow, include the lefs (the one extracted in [Step-5](#defining-lef-properties-and-extracting-lef-file)) as below:
+
+- In the design's config.tcl file add the below line to point to the lef location which is required during spice extraction.
+      
+          set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]
+      
+- Include the below command to include the additional lef into the flow:
+      
+          set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+        
+          add_lefs -src $lefs
+       
+- Run the interactive flow as described [here.](https://github.com/efabless/openlane/blob/master/doc/advanced_readme.md)
+  
+ Custom LEF file present in synthesised netlist with name ``sky130_vsdinv``
+ 
+ <img src="images/d4_lef_file_present_in new netlist.jpg"> </td>
   
  ## Timing Analysis using OpenSTA
   The Static Timing Analysis(STA) of the design is carried out using the OpenSTA tool. The analysis can be done in to different ways.
@@ -343,12 +443,9 @@
    3. Total Negative Slack (= 0.00, if no negative slack)
    4. Worst Negative Slack (= 0.00, if no negative slack)
   
-  <table border="0">
-  <tr>
-    <td> <img src="images/d4_sta_1.JPG"> </td>
-    <td> <img src="images/d4_sta_2.JPG"> </td>
-  </tr>
-  </table>
+
+<img src="images/d4_slack_met .jpg"> </td>
+
   
   If the design produces any setup timing violaions in the analysis, it can be eliminated or reduced using techniques as follows:
   1. Increase the clock period (Not always possible as generally operating frequency is freezed in the specifications)
@@ -368,8 +465,7 @@
   
     run_cts
     
-   <img src="images/d4_cts_1.JPG">
-   <img src="images/d4_cts_2.JPG">
+   <img src="images/d4_run_cts.jpg">
 
 # Day 5 - Final steps for RTL2GDS
  ## Generation of Power Distribution Network
@@ -378,7 +474,7 @@
    
     gen_pdn
     
-   <img src="images/d5_pdn.JPG">
+   <img src="images/gen_pdn.jpg">
    
  ## Routing using TritonRoute
    OpenLANE uses TritonRoute, an open source router for modern industrial designs. The router consists of several main building blocks, including pin access analysis, track assignment, initial detailed routing, search and repair, and a DRC engine.
@@ -393,11 +489,17 @@
     
    <table border="0">
    <tr>
-    <td> <img src="images/d5_routing.JPG"> </td>
-    <td> <img src="images/d5_routing_2.JPG"> </td>
+    <td> <center>Magic view of Completed routing</center> <br /><img src="images/after_routing_magic.jpg"> </td>
+    <td> <center>Routing Completed Message</center> <br /><img src="imagesrouting_done.jpg"> </td>
    </tr>
    </table>
-    
+   
+   ## DRC Check After Routing
+   DRC check after ``run_routing`` is done with ``run_magic`` followed by ``run_magic_spice_export`` and ``run_magic_drc``.
+   No DRC error found
+   
+   <img src="images/no_drc.jpg">
+   
  ## SPEF File Generation
    Standard Parasitic Exchange Format (SPEF) is an IEEE standard for representing parasitic data of wires in a chip in ASCII format. Non-ideal wires have parasitic resistance and capacitance that are captured by SPEF. 
    OpenLANE consists of a tool named, SPEF_EXTRACTOR for generation of SPEF file. It is a `python` based parser which takes the `LEF` and `DEF` files as input arguments and generates the SPEF file. The following command is used for invoking the SPEC_EXTRACTOR.
@@ -407,7 +509,7 @@
     
    The below snippet shows a small part of the `.spef` file.
    
-   <img src="images/d5_spef_file.JPG">
+   <img src="images/spef_file.jpg">
    
 # References
   - RISC-V: https://riscv.org/
